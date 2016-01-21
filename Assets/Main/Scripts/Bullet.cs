@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Bullet : MonoBehaviour {
-    public float speed = 1f;
+    public float speed = 1.5f;
     public float timeToLive =  5f;
   
     void Update () {
