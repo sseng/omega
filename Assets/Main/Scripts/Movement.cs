@@ -1,55 +1,39 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Movement : MonoBehaviour {
-    float speed;
+using Direction = Enums.Direction;
 
-    void Start()
+public class Movement 
+{
+    public Movement(){}
+
+	public Direction VerticalMovement(GameObject obj, Borders field) 
     {
-        speed = 0.2f;
-    }
-
-	void Update () 
-    {
-
-        if (Input.GetKey(KeyCode.A) && transform.position.x > -17)
+        Vector3 objpos = obj.transform.position;
+        if (Input.GetKey(KeyCode.S) && objpos.z > field.GetBottomBorder())
         {
-            MoveLeft();
+            return Direction.down;
         }
 
-        if (Input.GetKey(KeyCode.D) && transform.position.x < 17)
+        if (Input.GetKey(KeyCode.W) && objpos.z < field.GetTopBorder())
         {
-            MoveRight();
+            return Direction.up;
         }
-
-        if (Input.GetKey(KeyCode.S) && transform.position.z > -11)
-        {
-            MoveDown();
-        }
-
-        if (Input.GetKey(KeyCode.W) && transform.position.z < 11)
-        {
-            MoveUp();
-        }
+        return Direction.none;
 	}
 
-    void MoveLeft()
+    public Direction HorizontalMovement(GameObject obj, Borders field)
     {
-        this.transform.position += new Vector3(-speed, 0f, 0f);
-    }
+        Vector3 objpos = obj.transform.position;
+        if (Input.GetKey(KeyCode.A) && objpos.x > field.GetLeftBorder())
+        {
+            return Direction.left;
+        }
 
-    void MoveRight()
-    {
-        this.transform.position += new Vector3(speed, 0f, 0f);
-    }
-
-    void MoveUp()
-    {
-        this.transform.position += new Vector3(0, 0, speed);
-    }
-
-    void MoveDown()
-    {
-        this.transform.position += new Vector3(0, 0, -speed);
+        if (Input.GetKey(KeyCode.D) && objpos.x < field.GetRightBorder())
+        {
+            return Direction.right;
+        }
+        return Direction.none;
     }
 }
