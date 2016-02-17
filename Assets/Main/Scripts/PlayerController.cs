@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
 
     private Borders m_border;
     private Vehicle m_vehicle;
-    private GameObject m_model;
     private MovementBehavior m_move;
     private Direction horizontalMovement;
     private Direction verticalMovement;
@@ -19,14 +18,13 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        m_model = this.gameObject;
         m_vehicle = new Vehicle();
         m_vehicle.transform = this.gameObject.transform;
         m_border = new Borders(-13.5f, 13.5f, 8f, -8f);
         m_move = new MovementBehavior(m_vehicle, speed, m_border);
 
         m_bullet = Resources.Load("bullet") as GameObject;
-        m_defaultAction = new ActionBehavior(m_vehicle, m_bullet, 1.5f, 0.25f);
+        m_defaultAction = new ActionBehavior(m_vehicle, m_bullet, 0.25f);
     }
 
     void Update()

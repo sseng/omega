@@ -8,26 +8,22 @@ public class Vehicle : IDamageable
         set;
     }
 
-    public float Hp
-    {
-        get;
-        set;
-    }
-
     public float Speed
     {
         get;
         set;
     }
 
+    private float hp;
+
     public Vehicle()
     {
-        Hp = 100;
+        hp = 100;
         Speed = 1;
     }
 
     public void TakeDamage(float amount)
     {
-        Hp -= amount;
+        hp -= amount;
     }
 }

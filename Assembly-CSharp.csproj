@@ -45,9 +45,14 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Main\Scripts\ActionBehavior.cs" />
+     <Compile Include="Assets\Main\Scripts\Borders.cs" />
      <Compile Include="Assets\Main\Scripts\Bullet.cs" />
-     <Compile Include="Assets\Main\Scripts\Movement.cs" />
-     <Compile Include="Assets\Main\Scripts\Shooting.cs" />
+     <Compile Include="Assets\Main\Scripts\Enums.cs" />
+     <Compile Include="Assets\Main\Scripts\IDamageable.cs" />
+     <Compile Include="Assets\Main\Scripts\MovementBehavior.cs" />
+     <Compile Include="Assets\Main\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Main\Scripts\Vehicle.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
