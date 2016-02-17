@@ -14,8 +14,8 @@ public class PlayerController : MonoBehaviour
     private Direction horizontalMovement;
     private Direction verticalMovement;
 
-    private GameObject bullet;
-    private ActionBehavior defaultAttack;
+    private GameObject m_bullet;
+    private ActionBehavior m_defaultAction;
 
     void Start()
     {
@@ -24,8 +24,8 @@ public class PlayerController : MonoBehaviour
         m_border = new Borders(-13.5f, 13.5f, 8f, -8f);
         m_move = new MovementBehavior(m_vehicle, speed, m_border);
 
-        bullet = Resources.Load("bullet") as GameObject;
-        defaultAttack = new ActionBehavior(m_vehicle, bullet, 1.5f, 0.25f);
+        m_bullet = Resources.Load("bullet") as GameObject;
+        m_defaultAction = new ActionBehavior(m_vehicle, m_bullet, 1.5f, 0.25f);
     }
 
     void Update()
@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space))
         {
-            defaultAttack.Execute();
+            m_defaultAction.Attack();
         }
     }
 }

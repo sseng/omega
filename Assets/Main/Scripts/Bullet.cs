@@ -15,6 +15,7 @@ public class Bullet : MonoBehaviour {
     {
         if (other.tag == "enemy")
         {
+            //TODO: inflict damage. do not destroy other. other should destroy self when hp zero.
             Destroy(this.gameObject);
             Destroy(other.gameObject);
         }

@@ -8,7 +8,6 @@ public class ActionBehavior {
     private float m_cooldown;
     private float m_offsetZ;
     private float timer = 0f;
-    private bool cooldown;
 
     public ActionBehavior()
     {
@@ -26,22 +25,13 @@ public class ActionBehavior {
         m_offsetZ = 0.25f;
     }
 
-	public void Execute() 
+	public void Attack() 
     {
-        if (!cooldown)
-        {            
-            SpawnBullet();
-            cooldown = true;
-        }
-
-        if (cooldown)
+        timer += Time.deltaTime;
+        if (timer > m_cooldown)
         {
-            timer += Time.deltaTime;
-            if (timer > m_cooldown)
-            {
-                cooldown = false;
-                timer = 0;
-            }
+            SpawnBullet();
+            timer = 0;
         }
 	}
 
