@@ -25,7 +25,7 @@ public class ActionBehavior {
         m_offsetZ = 0.25f;
     }
 
-	public void Attack() 
+    public void Attack() 
     {
         timer += Time.deltaTime;
         if (timer > m_cooldown)
@@ -33,7 +33,7 @@ public class ActionBehavior {
             SpawnBullet();
             timer = 0;
         }
-	}
+    }
 
     void SpawnBullet()
     {

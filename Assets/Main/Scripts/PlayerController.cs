@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 
     private Borders m_border;
     private Vehicle m_vehicle;
-    private GameObject m_vehicleObj;
+    private GameObject m_model;
     private MovementBehavior m_move;
     private Direction horizontalMovement;
     private Direction verticalMovement;
@@ -19,8 +19,9 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        m_vehicleObj = this.gameObject;
-        m_vehicle = new Vehicle(m_vehicleObj);
+        m_model = this.gameObject;
+        m_vehicle = new Vehicle();
+        m_vehicle.transform = this.gameObject.transform;
         m_border = new Borders(-13.5f, 13.5f, 8f, -8f);
         m_move = new MovementBehavior(m_vehicle, speed, m_border);
 
