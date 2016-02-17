@@ -3,86 +3,59 @@ using System.Collections;
 
 using Direction = Enums.Direction;
 
-public class PlayerController : MonoBehaviour {
-    public float speed = 2;
-    public float rotationSpeed = 1f;
+public class PlayerController : MonoBehaviour
+{
+    public float speed = 10;
 
-    private Borders m_field;
-    private GameObject m_player;
-    private Movement m_move;
-    private Direction m_horizontal, m_vertical;
+    private Borders m_border;
+    private Vehicle m_vehicle;
+    private GameObject m_vehicleObj;
+    private MovementBehavior m_move;
+    private Direction horizontalMovement;
+    private Direction verticalMovement;
 
-	void Start() {
-        m_field = new Borders(-13.5f, 13.5f, 8f, -8f);
-        m_player = this.gameObject;
-        m_move = new Movement();
-	}
-	
-	void Update() {
-        m_horizontal = m_move.HorizontalMovement(m_player, m_field);
-        m_vertical = m_move.VerticalMovement(m_player, m_field);
-        if (m_horizontal == Direction.left)
-        {
-            MoveLeft();
-        }
+    private GameObject bullet;
+    private ActionBehavior defaultAttack;
 
-        if (m_horizontal == Direction.right)
-        {
-            MoveRight();
-        }
-
-        if (m_vertical == Direction.up)
-        {
-            MoveUp();
-        }
-
-        if (m_vertical == Direction.down)
-        {
-            MoveDown();
-        }
-        else
-        {
-            MoveNone();
-        }
-	}
-
-    void MoveLeft()
+    void Start()
     {
-        Vector3 targetAngle = new Vector3(0,0,60f);
-        RotateAngle(targetAngle);
-        this.transform.position += new Vector3(-speed / 10, 0f, 0f);
+        m_vehicleObj = this.gameObject;
+        m_vehicle = new Vehicle(m_vehicleObj);
+        m_border = new Borders(-13.5f, 13.5f, 8f, -8f);
+        m_move = new MovementBehavior(m_vehicle, speed, m_border);
+
+        bullet = Resources.Load("bullet") as GameObject;
+        defaultAttack = new ActionBehavior(m_vehicle, bullet, 1.5f, 0.25f);
     }
 
-    void MoveRight()
+    void Update()
     {
-        Vector3 targetAngle = new Vector3(0, 0, -60f);
-        RotateAngle(targetAngle);
-        this.transform.position += new Vector3(speed / 10, 0f, 0f);
-    }
+        horizontalMovement = m_move.HorizontalMovement();
+        verticalMovement = m_move.VerticalMovement();
+        if (horizontalMovement == Direction.left)
+        {
+            m_move.MoveLeft();
+        }
 
-    void MoveUp()
-    {
-        this.transform.position += new Vector3(0, 0, speed / 10);
-    }
+        if (horizontalMovement == Direction.right)
+        {
+            m_move.MoveRight();
+        }
 
-    void MoveDown()
-    {
-        this.transform.position += new Vector3(0, 0, -speed / 10);
-    }
+        if (verticalMovement == Direction.up)
+        {
+            m_move.MoveUp();
+        }
 
-    void MoveNone()
-    {
-        this.transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.identity, Time.deltaTime * rotationSpeed);
-    }
+        if (verticalMovement == Direction.down)
+        {
+            m_move.MoveDown();
+        }
+        m_move.MoveNone();
 
-    void RotateAngle(Vector3 targetAngle)
-    {
-        Vector3 currentAngle = transform.eulerAngles;
-        currentAngle = new Vector3(
-            Mathf.LerpAngle(currentAngle.x, targetAngle.x, Time.deltaTime * rotationSpeed),
-            Mathf.LerpAngle(currentAngle.y, targetAngle.y, Time.deltaTime * rotationSpeed),
-            Mathf.LerpAngle(currentAngle.z, targetAngle.z, Time.deltaTime * rotationSpeed)
-        );
-        this.transform.eulerAngles = currentAngle;
+        if (Input.GetKey(KeyCode.Space))
+        {
+            defaultAttack.Execute();
+        }
     }
 }
