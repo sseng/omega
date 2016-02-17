@@ -2,4 +2,6 @@ Library/
 ProjectSettings/
 Temp/
 obj/
+Assets/UnityVS.meta
+Assets/UnityVS/
 *.csproj
