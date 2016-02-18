@@ -10,51 +10,54 @@ public class PlayerController : MonoBehaviour
     private Borders m_border;
     private Vehicle m_vehicle;
     private MovementBehavior m_move;
-    private Direction horizontalMovement;
-    private Direction verticalMovement;
-
     private GameObject m_bullet;
-    private ActionBehavior m_defaultAction;
+    private ActionBehavior m_attack1;
 
     void Start()
     {
         m_vehicle = new Vehicle();
         m_vehicle.transform = this.gameObject.transform;
-        m_border = new Borders(-13.5f, 13.5f, 8f, -8f);
+        m_border = new Borders(-13.5f, 13.5f, 8.2f, -8.2f);
         m_move = new MovementBehavior(m_vehicle, speed, m_border);
 
         m_bullet = Resources.Load("bullet") as GameObject;
-        m_defaultAction = new ActionBehavior(m_vehicle, m_bullet, 0.25f);
+        m_attack1 = new ActionBehavior(m_vehicle, m_bullet, 0.25f);
     }
 
     void Update()
     {
-        horizontalMovement = m_move.HorizontalMovement();
-        verticalMovement = m_move.VerticalMovement();
-        if (horizontalMovement == Direction.left)
+		m_move.ApplyMovement();
+        m_attack1.ActionTimer();
+		
+		if (Input.GetKey(KeyCode.A))
         {
-            m_move.MoveLeft();
+            m_move.horizontalMovement = Direction.left;
         }
-
-        if (horizontalMovement == Direction.right)
-        {
-            m_move.MoveRight();
-        }
-
-        if (verticalMovement == Direction.up)
-        {
-            m_move.MoveUp();
-        }
-
-        if (verticalMovement == Direction.down)
-        {
-            m_move.MoveDown();
-        }
-        m_move.MoveNone();
-
+		else if (Input.GetKey(KeyCode.D))
+		{
+			m_move.horizontalMovement = Direction.right;
+		}
+		else
+		{
+			m_move.horizontalMovement = Direction.none;
+		}
+		
+		if (Input.GetKey(KeyCode.W))
+		{
+			m_move.verticalMovement = Direction.up;
+		}
+		else if (Input.GetKey(KeyCode.S))
+		{
+			m_move.verticalMovement = Direction.down;
+		}		
+		else 
+		{
+			m_move.verticalMovement = Direction.none;
+		}
+		
         if (Input.GetKey(KeyCode.Space))
         {
-            m_defaultAction.Attack();
+            m_attack1.Attack();
         }
     }
 }

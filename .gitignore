@@ -2,6 +2,24 @@ Library/
 ProjectSettings/
 Temp/
 obj/
+
+# vs project files
 Assets/UnityVS.meta
 Assets/UnityVS/
 *.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+
+#Unity generated meta files
+*.pidb.meta
+
+#builds
+*.apk
+*.unitypackage

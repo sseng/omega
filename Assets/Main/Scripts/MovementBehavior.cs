@@ -4,9 +4,11 @@ using Direction = Enums.Direction;
 
 public class MovementBehavior 
 {
+	public Direction horizontalMovement;
+	public Direction verticalMovement;
     private float m_speed;
     private Vehicle m_vehicle;
-    private Borders m_border;
+    private Borders m_border;    
 
     //ctor
     public MovementBehavior()
@@ -21,37 +23,28 @@ public class MovementBehavior
         m_vehicle = vehicle;
         m_speed = speed;
         m_border = border;
+        horizontalMovement = Direction.none;
+        verticalMovement = Direction.none;
     }
-
-	public Direction VerticalMovement() 
+    
+    public void ApplyMovement()
     {
         Vector3 objpos = m_vehicle.transform.position;
-        if (Input.GetKey(KeyCode.S) && objpos.z > m_border.GetBottomBorder())
-        {
-            return Direction.down;
-        }
+        if (objpos.x > m_border.GetLeftBorder() && horizontalMovement == Direction.left)
+            MoveLeft();
 
-        if (Input.GetKey(KeyCode.W) && objpos.z < m_border.GetTopBorder())
-        {
-            return Direction.up;
-        }
-        return Direction.none;
+        if (objpos.x < m_border.GetRightBorder() && horizontalMovement == Direction.right)
+            MoveRight();
+
+        if (objpos.z < m_border.GetTopBorder() && verticalMovement == Direction.up)
+            MoveUp();
+
+        if (objpos.z > m_border.GetBottomBorder() && verticalMovement == Direction.down)
+            MoveDown();
+
+        if (horizontalMovement == Direction.none && verticalMovement == Direction.none)
+                MoveNone();
 	}
-
-    public Direction HorizontalMovement()
-    {
-        Vector3 objpos = m_vehicle.transform.position;
-        if (Input.GetKey(KeyCode.A) && objpos.x > m_border.GetLeftBorder())
-        {
-            return Direction.left;
-        }
-
-        if (Input.GetKey(KeyCode.D) && objpos.x < m_border.GetRightBorder())
-        {
-            return Direction.right;
-        }
-        return Direction.none;
-    }
 
     public void MoveLeft()
     {
@@ -78,6 +71,7 @@ public class MovementBehavior
         Vector3 destination = m_vehicle.transform.position;
         destination.z += m_speed;
         m_vehicle.transform.position = Vector3.Lerp(m_vehicle.transform.position, destination, Time.deltaTime);
+        m_vehicle.transform.rotation = Quaternion.Lerp(m_vehicle.transform.rotation, Quaternion.identity, Time.deltaTime);
     }
 
     public void MoveDown()
