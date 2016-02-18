@@ -1,13 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Bullet : MonoBehaviour {
-    public float speed = 1.5f;
     public float timeToLive =  5f;
-  
-    void Update () 
+    private float m_speed = 10f;
+    private float m_damage = 10;
+    private Vector3 m_direction;
+
+    void Start()
     {
-        this.transform.position += new Vector3(0, 0, speed/10);
+        m_direction = new Vector3(0, 0, Time.deltaTime * m_speed);
+    }
+  
+    void Update() 
+    {
+        this.transform.position += m_direction;
         Destroy(this.gameObject, timeToLive);
 	}
 
@@ -15,9 +23,18 @@ public class Bullet : MonoBehaviour {
     {
         if (other.tag == "enemy")
         {
-            //TODO: inflict damage. do not destroy other. other should destroy self when hp zero.
+            other.GetComponent<IDamageable>().TakeDamage(m_damage);
             Destroy(this.gameObject);
-            Destroy(other.gameObject);
         }
+    }
+
+    public void SetDamage(float damage)
+    {
+        m_damage = damage;
+    }
+
+    public void SetDirection(Vector3 direction)
+    {
+        m_direction = direction;
     }
 }

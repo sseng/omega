@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour
         m_vehicle.transform = this.gameObject.transform;
         m_border = new Borders(-13.5f, 13.5f, 8.2f, -8.2f);
         m_move = new MovementBehavior(m_vehicle, speed, m_border);
-
         m_bullet = Resources.Load("bullet") as GameObject;
         m_attack1 = new ActionBehavior(m_vehicle, m_bullet, 0.25f);
     }
