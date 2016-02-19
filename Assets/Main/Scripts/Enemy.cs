@@ -8,18 +8,19 @@ class Enemy : MonoBehaviour, IDamageable, IActor
     private ActionBehavior attack;
     private GameObject m_bullet;
 
+    public float AttackDamage
+    {
+        get; set;
+    }
+
     void Start()
     {
         m_transform = gameObject.transform;
         m_bullet = Resources.Load("bullet") as GameObject;
-        Vector3 bulletDirection = new Vector3(0, 0, -0.15f);
-        Bullet enemyBullet = m_bullet.GetComponent<Bullet>();
-
-        enemyBullet.SetDirection(bulletDirection);
-        enemyBullet.SetDamage(m_attackDamage);
-        
-        attack = new ActionBehavior(this, m_bullet, 1f);
-        AttackDamage(5);
+        Vector3 bulletDirection = new Vector3(0, 0, -Time.deltaTime * 10);
+        Vector3 bulletOffset = new Vector3(0, 0, -1);
+        attack = new ActionBehavior(this, m_bullet, 1f, bulletDirection, "Player", bulletOffset);
+        AttackDamage = 5;       
     }
 
     void Update()
@@ -40,11 +41,6 @@ class Enemy : MonoBehaviour, IDamageable, IActor
     public void TakeDamage(float damage)
     {
         hp -= damage;
-    }
-
-    public void AttackDamage(float damage)
-    {
-        m_attackDamage = damage;
     }
 
     public Transform GetTransform()

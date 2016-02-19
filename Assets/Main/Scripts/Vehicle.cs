@@ -4,24 +4,29 @@ public class Vehicle : IDamageable, IActor, IMoveable
 {
     private float m_speed;
     private float m_hp;
-    private float m_attackDamage;
     private Transform m_transform;
+
+    public float AttackDamage
+    {
+        get; set;
+    }
 
     public Vehicle(float hp, float speed, Transform transform)
     {
         m_hp = hp;
         m_speed = speed;
         m_transform = transform;
+        AttackDamage = 10;
+    }
+
+    public float GetHp()
+    {
+        return m_hp;
     }
 
     public void TakeDamage(float amount)
     {
         m_hp -= amount;
-    }
-
-    public void AttackDamage(float damage)
-    {
-        m_attackDamage = damage;
     }
 
     public Transform GetTransform()

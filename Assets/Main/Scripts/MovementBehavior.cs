@@ -16,7 +16,6 @@ public class MovementBehavior
 
     public virtual void ApplyMovement()
     {
-        Vector3 objpos = m_moveable.GetTransform().position;
         if (horizontalState == Direction.left)
             m_moveable.MoveLeft();
 

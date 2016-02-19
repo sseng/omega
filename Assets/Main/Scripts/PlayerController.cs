@@ -3,21 +3,21 @@ using System.Collections;
 
 using Direction = Enums.Direction;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
-    public float speed = 10;
-
-    private Vehicle m_player;
-    private MovementBehavior m_move;
+    private Vehicle m_vehicle;
+    private PlayerMovement m_move;
+    private MovementBehavior m_bulletMovement;
     private GameObject m_bullet;
     private ActionBehavior m_attack1;
 
     void Start()
     {
-        m_player = new Vehicle(100, 10, gameObject.transform);
-        m_move = new PlayerMovement(m_player);
+        m_vehicle = new Vehicle(100, 10, gameObject.transform);
+        m_move = new PlayerMovement(m_vehicle);
         m_bullet = Resources.Load("bullet") as GameObject;
-        m_attack1 = new ActionBehavior(m_player, m_bullet, 0.25f);
+        Vector3 bulletDirection = new Vector3(0, 0, Time.deltaTime * 10);
+        m_attack1 = new ActionBehavior(m_vehicle, m_bullet, 0.25f, bulletDirection, "Enemy");
     }
 
     void Update()
@@ -55,5 +55,15 @@ public class PlayerController : MonoBehaviour
         {
             m_attack1.PerformAction();
         }
+
+        if (m_vehicle.GetHp() <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    public void TakeDamage(float amount)
+    {
+        m_vehicle.TakeDamage(amount);
     }
 }
