@@ -1,43 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Borders  {
+public static class Borders  {
 
-    private float _leftBorder, _rightBorder, _topBorder, _bottomBorder;
-
-    public Borders()
+    public static float GetLeftBorder()
     {
-        _leftBorder = -10.0f;
-        _rightBorder = 10.0f;
-        _bottomBorder = -8.0f;
-        _topBorder = 8.0f;
+        return -13.5f;
     }
 
-    public Borders(float left, float right, float top, float bottom)
+    public static float GetRightBorder()
     {
-        _leftBorder = left;
-        _rightBorder = right;
-        _topBorder = top;
-        _bottomBorder = bottom;
+        return 13.5f;
     }
 
-    public float GetLeftBorder()
+    public static float GetTopBorder()
     {
-        return _leftBorder;
+        return 8.2f;
     }
 
-    public float GetRightBorder()
+    public static float GetBottomBorder()
     {
-        return _rightBorder;
-    }
-
-    public float GetTopBorder()
-    {
-        return _topBorder;
-    }
-
-    public float GetBottomBorder()
-    {
-        return _bottomBorder;
+        return -8.2f;
     }
 }

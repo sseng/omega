@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-class Enemy : MonoBehaviour, IDamageable, IAttacker
+class Enemy : MonoBehaviour, IDamageable, IActor
 {
     public float hp = 20;
     private Transform m_transform;
@@ -25,7 +25,7 @@ class Enemy : MonoBehaviour, IDamageable, IAttacker
     void Update()
     {
         attack.ActionTimer();
-        attack.Attack();
+        attack.PerformAction();
         checkHealth();
     }
 
