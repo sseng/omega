@@ -3,7 +3,7 @@ using System.Collections;
 
 using Direction = Enums.Direction;
 
-public class PlayerController : MonoBehaviour, IDamageable
+public class PlayerCraft : MonoBehaviour, IDamageable
 {
     private Vehicle m_vehicle;
     private PlayerMovement m_move;
@@ -17,13 +17,13 @@ public class PlayerController : MonoBehaviour, IDamageable
         m_move = new PlayerMovement(m_vehicle);
         m_bullet = Resources.Load("bullet") as GameObject;
         Vector3 bulletDirection = new Vector3(0, 0, Time.deltaTime * 10);
-        m_attack1 = new ActionBehavior(m_vehicle, m_bullet, 0.25f, bulletDirection, "Enemy");
+        m_attack1 = new ActionBehavior(m_vehicle, m_bullet, 0.25f, 10f, bulletDirection, "Enemy");
     }
 
     void Update()
     {
-		m_move.ApplyMovement();
-        m_attack1.ActionTimer();
+		m_move.applyMovement();
+        m_attack1.actionTimer();
 		
 		if (Input.GetKey(KeyCode.A))
         {
@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 		
         if (Input.GetKey(KeyCode.Space))
         {
-            m_attack1.PerformAction();
+            m_attack1.performAction();
         }
 
         if (m_vehicle.GetHp() <= 0)
@@ -62,8 +62,8 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
     }
 
-    public void TakeDamage(float amount)
+    public void takeDamage(float amount)
     {
-        m_vehicle.TakeDamage(amount);
+        m_vehicle.takeDamage(amount);
     }
 }

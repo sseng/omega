@@ -10,23 +10,23 @@ class PlayerMovement : MovementBehavior
         m_moveable = moveable;
     }
 
-    public override void ApplyMovement()
+    public override void applyMovement()
     {
-        Vector3 objpos = m_moveable.GetTransform().position;
-        if (objpos.x > Borders.GetLeftBorder() && horizontalState == Direction.left)
-            m_moveable.MoveLeft();
+        Vector3 objpos = m_moveable.getTransform().position;
+        if (objpos.x > Borders.left && horizontalState == Direction.left)
+            m_moveable.moveLeft();
 
-        if (objpos.x < Borders.GetRightBorder() && horizontalState == Direction.right)
-            m_moveable.MoveRight();
+        if (objpos.x < Borders.right && horizontalState == Direction.right)
+            m_moveable.moveRight();
 
-        if (objpos.z < Borders.GetTopBorder() && verticalState == Direction.up)
-            m_moveable.MoveUp();
+        if (objpos.z < Borders.top && verticalState == Direction.up)
+            m_moveable.moveUp();
 
-        if (objpos.z > Borders.GetBottomBorder() && verticalState == Direction.down)
-            m_moveable.MoveDown();
+        if (objpos.z > Borders.bottom && verticalState == Direction.down)
+            m_moveable.moveDown();
 
         if (horizontalState == Direction.none && verticalState == Direction.none)
-            m_moveable.MoveNone();
+            m_moveable.moveNone();
     }
 }
 

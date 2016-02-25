@@ -4,13 +4,14 @@ using System.Collections.Generic;
 
 public class Bullet : MonoBehaviour {
     public float timeToLive =  5f;
-    public float m_damage = 10;
-    public string m_tag;
+    private float m_damage = 10;
+    private float m_speed = 1;
+    private string m_tag;
     private Vector3 m_direction;
 
     void Update() 
     {
-        this.transform.position += m_direction;
+        this.transform.position += m_direction * m_speed;
         Destroy(this.gameObject, timeToLive);
 	}
 
@@ -18,22 +19,27 @@ public class Bullet : MonoBehaviour {
     {
         if (other.tag == m_tag)
         {
-            other.GetComponent<IDamageable>().TakeDamage(m_damage);
+            other.GetComponent<IDamageable>().takeDamage(m_damage);
             Destroy(this.gameObject);
         }
     }
 
-    public void SetDamage(float damage)
+    public void setDamage(float damage)
     {
         m_damage = damage;
     }
 
-    public void SetDirection(Vector3 direction)
+    public void setSpeed(float speed)
+    {
+        m_speed = speed;
+    }
+
+    public void setDirection(Vector3 direction)
     {
         m_direction = direction;
     }
 
-    public void SetTag(string tag)
+    public void setTag(string tag)
     {
         m_tag = tag;
     }

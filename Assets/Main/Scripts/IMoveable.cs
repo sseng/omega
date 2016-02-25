@@ -2,10 +2,11 @@
 
 public interface IMoveable
 {
-    void MoveLeft();
-    void MoveRight();
-    void MoveUp();
-    void MoveDown();
-    void MoveNone();
-    Transform GetTransform();
+    void moveLeft();
+    void moveRight();
+    void moveUp();
+    void moveDown();
+    void moveNone();
+    void moveTo(Vector3 destination);
+    Transform getTransform();
 }

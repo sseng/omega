@@ -4,19 +4,14 @@ public class Vehicle : IDamageable, IActor, IMoveable
 {
     private float m_speed;
     private float m_hp;
+    private float m_rotateAngle = 60;
     private Transform m_transform;
-
-    public float AttackDamage
-    {
-        get; set;
-    }
 
     public Vehicle(float hp, float speed, Transform transform)
     {
         m_hp = hp;
         m_speed = speed;
         m_transform = transform;
-        AttackDamage = 10;
     }
 
     public float GetHp()
@@ -24,58 +19,63 @@ public class Vehicle : IDamageable, IActor, IMoveable
         return m_hp;
     }
 
-    public void TakeDamage(float amount)
+    public void takeDamage(float amount)
     {
         m_hp -= amount;
     }
 
-    public Transform GetTransform()
+    public Transform getTransform()
     {
         return m_transform;
     }
 
-    public void MoveLeft()
+    public void moveLeft()
     {
-        Vector3 targetAngle = new Vector3(0, 0, 60f);
-        RotateAngle(targetAngle);
+        Vector3 targetAngle = new Vector3(0, 0, m_rotateAngle);
+        rotateAngle(targetAngle);
 
         Vector3 destination = m_transform.position;
-        destination.x -= m_speed;
-        m_transform.position = Vector3.Lerp(m_transform.position, destination, Time.deltaTime);
+        destination.x -= 1;
+        m_transform.position = Vector3.Lerp(m_transform.position, destination, Time.deltaTime * m_speed);
     }
 
-    public void MoveRight()
+    public void moveRight()
     {
-        Vector3 targetAngle = new Vector3(0, 0, -60f);
-        RotateAngle(targetAngle);
+        Vector3 targetAngle = new Vector3(0, 0, -m_rotateAngle);
+        rotateAngle(targetAngle);
 
         Vector3 destination = m_transform.position;
-        destination.x += m_speed;
-        m_transform.position = Vector3.Lerp(m_transform.position, destination, Time.deltaTime);
+        destination.x += 1;
+        m_transform.position = Vector3.Lerp(m_transform.position, destination, Time.deltaTime * m_speed);
     }
 
-    public void MoveUp()
+    public void moveUp()
     {
         Vector3 destination = m_transform.position;
-        destination.z += m_speed;
-        m_transform.position = Vector3.Lerp(m_transform.position, destination, Time.deltaTime);
+        destination.z += 1;
+        m_transform.position = Vector3.Lerp(m_transform.position, destination, Time.deltaTime * m_speed);
         m_transform.rotation = Quaternion.Lerp(m_transform.rotation, Quaternion.identity, Time.deltaTime);
     }
 
-    public void MoveDown()
+    public void moveDown()
     {
         Vector3 destination = m_transform.position;
-        destination.z -= m_speed;
-        m_transform.position = Vector3.Lerp(m_transform.position, destination, Time.deltaTime);
+        destination.z -= 1;
+        m_transform.position = Vector3.Lerp(m_transform.position, destination, Time.deltaTime * m_speed);
         m_transform.rotation = Quaternion.Lerp(m_transform.rotation, Quaternion.identity, Time.deltaTime);
     }
 
-    public void MoveNone()
+    public void moveNone()
     {
         m_transform.rotation = Quaternion.Lerp(m_transform.rotation, Quaternion.identity, Time.deltaTime);
     }
 
-    void RotateAngle(Vector3 targetAngle)
+    public void moveTo(Vector3 destination)
+    {
+        m_transform.position = Vector3.MoveTowards(m_transform.position, destination, Time.deltaTime * m_speed);
+    }
+
+    void rotateAngle(Vector3 targetAngle)
     {
         Vector3 currentAngle = m_transform.eulerAngles;
         currentAngle = new Vector3(

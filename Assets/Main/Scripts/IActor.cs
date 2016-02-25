@@ -2,7 +2,6 @@
 
 public interface IActor
 {
-    float AttackDamage{ get; set; }
-    Transform GetTransform();
+    Transform getTransform();
 }
      

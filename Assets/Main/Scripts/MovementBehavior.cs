@@ -5,6 +5,7 @@ public class MovementBehavior
 {
 	public Direction horizontalState;
 	public Direction verticalState;
+
     protected IMoveable m_moveable;
 
     public MovementBehavior(IMoveable moveable)
@@ -14,21 +15,21 @@ public class MovementBehavior
         m_moveable = moveable;
     }
 
-    public virtual void ApplyMovement()
+    public virtual void applyMovement()
     {
         if (horizontalState == Direction.left)
-            m_moveable.MoveLeft();
+            m_moveable.moveLeft();
 
         if (horizontalState == Direction.right)
-            m_moveable.MoveRight();
+            m_moveable.moveRight();
 
         if (verticalState == Direction.up)
-            m_moveable.MoveUp();
+            m_moveable.moveUp();
 
         if (verticalState == Direction.down)
-            m_moveable.MoveDown();
+            m_moveable.moveDown();
 
         if (verticalState == Direction.none)
-            m_moveable.MoveNone();
+            m_moveable.moveNone();
 	}
 }
