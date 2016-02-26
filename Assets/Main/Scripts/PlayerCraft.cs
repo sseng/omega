@@ -18,6 +18,7 @@ public class PlayerCraft : MonoBehaviour, IDamageable
         m_bullet = Resources.Load("bullet") as GameObject;
         Vector3 bulletDirection = new Vector3(0, 0, Time.deltaTime * 10);
         m_attack1 = new ActionBehavior(m_vehicle, m_bullet, 0.25f, 10f, bulletDirection, "Enemy");
+        m_attack1.setBulletSpeed(1f);
     }
 
     void Update()

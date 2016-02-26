@@ -2,6 +2,10 @@
 
 class Player
 {
+    public int Score
+    {
+        get; set;
+    }
     private int m_lives;
     private GameObject m_gobj;
     private GameObject m_playerCraft;
@@ -28,6 +32,11 @@ class Player
     public bool hasLives()
     {
         return m_lives > 0;
+    }
+
+    public Vector3 getPosition()
+    {
+        return m_playerCraft.transform.position;
     }
 }
 

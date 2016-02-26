@@ -2,15 +2,16 @@
 using System.Collections;
 
 public class ActionBehavior {
-    private IActor m_actor;
-    private GameObject m_bullet;
     private float m_fireRate;
     private float m_timer;
-    private float m_projectileSpeed = 1;
+    private float m_projectileSpeed;
+    private string m_targetTag;
     private float m_attackDamage;
+    private IActor m_actor;
+    private GameObject m_bullet;
     private Vector3 m_offset;
     private Vector3 m_direction;
-    private string m_targetTag;
+    private Bullet bscript;
 
     public ActionBehavior(IActor actor, GameObject bullet, float fireRate, float damage, Vector3 direction, string targetTag)
     {
@@ -40,7 +41,7 @@ public class ActionBehavior {
         spawnOffset.z += m_offset.z;
         
         GameObject b = GameObject.Instantiate(m_bullet, spawnOffset, m_actor.getTransform().rotation) as GameObject;
-        Bullet bscript = b.GetComponent<Bullet>();
+        bscript = b.GetComponent<Bullet>();
         bscript.setDamage(m_attackDamage);
         bscript.setDirection(m_direction);
         bscript.setTag(m_targetTag);
@@ -61,13 +62,13 @@ public class ActionBehavior {
         }
     }
 
+    public void setProjectileDirection(Vector3 direction)
+    {
+        m_direction = direction;
+    }
+
     public void setBulletSpeed(float speedMultiplier)
     {
         m_projectileSpeed = speedMultiplier;
-    }
-
-    public void setDamage(float damage)
-    {
-        m_attackDamage = damage;
     }
 }
